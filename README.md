@@ -4,7 +4,7 @@ This repo is a step-by-step hands-on track to build AI/ML systems across major s
 tabular ML, NLP, time-series, deep learning, computer vision, RAG, agents, and deployment.
 
 ## Repo Structure
-- `00_setup/` Reproducible environment + utilities
+- `setup/` Reproducible environment + utilities
 - `01_ml_basics/` EDA + feature engineering
 - `02_supervised_classification/` Classification pipeline
 - `03_supervised_regression/` Regression pipeline

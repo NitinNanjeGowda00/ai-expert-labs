@@ -29,3 +29,4 @@ artifacts/
 
 # Data (keep raw data out of git by default)
 data/
+.env

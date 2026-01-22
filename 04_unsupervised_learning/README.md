@@ -1,7 +1,14 @@
-# Segment 04 — Unsupervised Learning (KMeans + PCA)
+# 04 — Unsupervised Learning (KMeans + PCA)
 
-Dataset: Wine (sklearn)
+Cluster a dataset with **KMeans** and use **PCA** to reduce dimensionality for analysis/visualization workflows.
 
-## Run
-```powershell
+**Dataset:** Wine (scikit-learn)  
+**Task:** Unsupervised clustering
+
+---
+
+## Quickstart (60 seconds)
+
+```bash
+pip install -r requirements.txt
 python 04_unsupervised_learning/train.py

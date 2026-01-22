@@ -6,14 +6,6 @@ Each segment is **self-contained**, has a clear entry script, prints metrics, an
 
 ---
 
-## Quickstart (Windows / PowerShell)
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pips
-pip install -r requirements.txt
-
 ## Run any segment from the repo root
 python <segment_folder>/<script_name>.py
 
@@ -30,4 +22,17 @@ python <segment_folder>/<script_name>.py
 - `09_llm_rag/` RAG with citations + eval
 - `10_agents/` Tool-using agent
 - `11_mlops_deploy/` FastAPI + Docker deployment
+
+
+---
+
+## Quickstart (Windows / PowerShell)
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pips
+pip install -r requirements.txt
+
+---
 

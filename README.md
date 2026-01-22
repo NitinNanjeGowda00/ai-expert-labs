@@ -1,7 +1,21 @@
 # AI Expert Labs (Hands-on)
 
-This repo is a step-by-step hands-on track to build AI/ML systems across major segments:
-tabular ML, NLP, time-series, deep learning, computer vision, RAG, agents, and deployment.
+A step-by-step, runnable repo for building end-to-end AI/ML systems across tabular ML, NLP, time series, deep learning, computer vision, RAG, agents, and deployment.
+
+Each segment is **self-contained**, has a clear entry script, prints metrics, and saves outputs under an `artifacts/` folder for easy inspection.
+
+---
+
+## Quickstart (Windows / PowerShell)
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pips
+pip install -r requirements.txt
+
+## Run any segment from the repo root
+python <segment_folder>/<script_name>.py
 
 ## Repo Structure
 - `setup/` Reproducible environment + utilities
@@ -17,9 +31,3 @@ tabular ML, NLP, time-series, deep learning, computer vision, RAG, agents, and d
 - `10_agents/` Tool-using agent
 - `11_mlops_deploy/` FastAPI + Docker deployment
 
-## Windows Setup (PowerShell)
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt

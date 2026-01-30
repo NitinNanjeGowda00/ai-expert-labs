@@ -1,114 +1,101 @@
-"""
-Segment 09 - RAG Ingestion (OpenAI Vector Store)
-
-- Reads files from 09_llm_rag/docs/
-- Uploads supported non-empty files
-- Creates a Vector Store and attaches the uploaded files
-- Writes vector store info to artifacts/seg09/vector_store.json
-
-Run:
-  python 09_llm_rag/ingest.py
-"""
-
-from __future__ import annotations
-
-import json
-import os
 import time
+import json
 from pathlib import Path
-
 from dotenv import load_dotenv
 from openai import OpenAI
 
+# ------------------------
+# Config
+# ------------------------
 DOCS_DIR = Path("09_llm_rag/docs")
-ART_DIR = Path("artifacts/seg09")
-ART_DIR.mkdir(parents=True, exist_ok=True)
+ARTIFACT_DIR = Path("artifacts/seg09")
+ALLOWED_EXTS = {".md", ".txt", ".pdf", ".csv", ".json"}
 
-# Keep it simple: ingest only these types (add more if you want)
-ALLOWED_EXTS = {".txt", ".md", ".pdf", ".csv", ".json"}
-
-
-def is_allowed(path: Path) -> bool:
-    # Skip hidden/dot files and placeholders
-    if path.name.startswith("."):
-        return False
-    if path.suffix.lower() not in ALLOWED_EXTS:
-        return False
-    # Skip empty files (OpenAI rejects application/x-empty)
-    if path.stat().st_size == 0:
-        return False
-    return True
+load_dotenv()
 
 
-def main() -> None:
-    load_dotenv()
-    if not os.getenv("OPENAI_API_KEY"):
-        raise RuntimeError("OPENAI_API_KEY not found. Add it to .env")
-
+def main():
     client = OpenAI()
 
-    if not DOCS_DIR.exists():
-        raise RuntimeError(f"Docs folder not found: {DOCS_DIR}. Create it and add some .txt/.md/.pdf files.")
+    files = [
+        p for p in DOCS_DIR.iterdir()
+        if p.is_file() and p.suffix.lower() in ALLOWED_EXTS
+    ]
 
-    all_files = [p for p in DOCS_DIR.rglob("*") if p.is_file()]
-    files = [p for p in all_files if is_allowed(p)]
+    print(f"Found {len(files)} supported files in {DOCS_DIR} (from {len(list(DOCS_DIR.iterdir()))} total files)")
 
     if not files:
-        raise RuntimeError(
-            f"No supported non-empty files found in {DOCS_DIR}.\n"
-            f"Allowed extensions: {sorted(ALLOWED_EXTS)}\n"
-            f"Tip: add a .txt or .md file with content."
-        )
+        raise RuntimeError("No supported documents found")
 
-    print(f"Found {len(files)} supported files in {DOCS_DIR} (from {len(all_files)} total files)")
+    # ------------------------
+    # Upload files
+    # ------------------------
+    uploaded_file_ids = []
 
-    # 1) Upload files
-    uploaded_ids = []
     for path in files:
         with open(path, "rb") as f:
-            up = client.files.create(file=f, purpose="assistants")
-        uploaded_ids.append(up.id)
-        print(f"Uploaded: {path.name} -> {up.id}")
+            uploaded = client.files.create(
+                file=f,
+                purpose="assistants",
+            )
+            uploaded_file_ids.append(uploaded.id)
+            print(f"Uploaded: {path.name} -> {uploaded.id}")
 
-    # 2) Create vector store
-    vs = client.vector_stores.create(name="seg09_vector_store")
-    print(f"Created vector store: {vs.id}")
-
-    # 3) Add files to vector store
-    batch = client.vector_stores.file_batches.create(
-        vector_store_id=vs.id,
-        file_ids=uploaded_ids,
+    # ------------------------
+    # Create vector store
+    # ------------------------
+    vector_store = client.vector_stores.create(
+        name="seg09_vector_store"
     )
-    batch_id = batch.id  # keep stable; must begin with vsfb_
-    print(f"File batch: {batch_id} (status={batch.status})")
+    print(f"Created vector store: {vector_store.id}")
 
-    # 4) Poll until complete
+    # ------------------------
+    # Create file batch (IMPORTANT)
+    # ------------------------
+    file_batch = client.vector_stores.file_batches.create(
+        vector_store_id=vector_store.id,
+        file_ids=uploaded_file_ids,
+    )
+
+    file_batch_id = file_batch.id  # <-- must be vsfb_*
+    print(f"File batch created: {file_batch_id}")
+
+    # ------------------------
+    # Poll until indexing completes
+    # ------------------------
     while True:
-        batch = client.vector_stores.file_batches.retrieve(
-            vector_store_id=vs.id,
-            batch_id=batch_id,
+        status = client.vector_stores.file_batches.retrieve(
+            vector_store_id=vector_store.id,
+            batch_id=file_batch_id,
         )
-        if batch.status in ("completed", "failed", "cancelled"):
-            print(f"Batch finished: status={batch.status}")
+
+        print(f"Indexing status: {status.status}")
+
+        if status.status in ("completed", "failed"):
             break
-        print(f"Waiting... status={batch.status}")
+
         time.sleep(2)
 
-    if batch.status != "completed":
-        raise RuntimeError(f"Vector store ingestion failed: status={batch.status}")
+    if status.status != "completed":
+        raise RuntimeError("Vector store indexing failed")
 
-    out = {
-        "vector_store_id": vs.id,
-        "file_batch_id": batch_id,
-        "file_ids": uploaded_ids,
+    # ------------------------
+    # Save metadata
+    # ------------------------
+    ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
+
+    meta = {
+        "vector_store_id": vector_store.id,
+        "file_batch_id": file_batch_id,
+        "file_ids": uploaded_file_ids,
         "docs_dir": str(DOCS_DIR),
         "allowed_exts": sorted(ALLOWED_EXTS),
     }
 
-    (ART_DIR / "vector_store.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
+    out = ARTIFACT_DIR / "vector_store.json"
+    out.write_text(json.dumps(meta, indent=2))
 
-    print(f"\nSaved: {ART_DIR / 'vector_store.json'}")
-    print('Next: python 09_llm_rag/ask.py "your question"')
+    print(f"\nSaved vector store metadata to {out}")
 
 
 if __name__ == "__main__":

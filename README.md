@@ -1,4 +1,4 @@
-# AI Expert Labs (Hands-on)
+# AI Engineering Labs (Hands-on)
 
 A step-by-step, runnable repo for building end-to-end AI/ML systems across tabular ML, NLP, time series, deep learning, computer vision, RAG, agents, and deployment.
 

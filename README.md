@@ -5,7 +5,7 @@ A production-oriented, runnable repository that demonstrates how to design, trai
 This repo is built to reflect how AI Engineers actually work in industry, not just notebooks or toy demos.
 
 ---
-#What This Repository Demonstrates
+What This Repository Demonstrates:-
 
 Classical ML pipelines (tabular data)
 
@@ -67,33 +67,25 @@ Dataset: Breast Cancer Wisconsin (sklearn)
 Models compared:
 
 Logistic Regression
-
 Random Forest
 
 Pipeline includes:
 
 Imputation
-
 Scaling
-
 Model
 
 Evaluation:
 
 Accuracy
-
 ROC-AUC (primary selection metric)
-
 Best model is automatically selected and exported
 
 Outputs
 
 best_model.joblib
-
 metrics.json
-
 Confusion matrix plot
-
 ROC curve plot
 
 Run
@@ -107,11 +99,8 @@ Goal: Build and evaluate regression pipelines with proper metrics.
 What it demonstrates
 
 Train/test split
-
 Pipeline-based preprocessing
-
 Regression metrics (RMSE, R²)
-
 Artifact saving for reproducibility
 
 Run
@@ -125,11 +114,8 @@ Goal: Explore structure in unlabeled data.
 What it demonstrates
 
 Clustering (e.g., KMeans)
-
 Dimensionality reduction (PCA)
-
 Visualization of clusters
-
 Interpretation of unsupervised outputs
 
 Run
@@ -143,11 +129,8 @@ Goal: Build forecasting models with temporal awareness.
 What it demonstrates
 
 Train/validation split by time
-
 Forecasting logic
-
 Error metrics
-
 Plotting predictions vs ground truth
 
 Run
@@ -161,11 +144,8 @@ Goal: Show non-LLM NLP pipelines.
 What it demonstrates
 
 Text preprocessing
-
 TF-IDF vectorization
-
 Linear classifiers
-
 Explainable NLP models
 
 Run
@@ -179,11 +159,8 @@ Goal: Implement neural networks from scratch.
 What it demonstrates
 
 PyTorch training loops
-
 Loss tracking
-
 Model checkpoints
-
 GPU-ready code structure
 
 Run
@@ -197,11 +174,8 @@ Goal: Build and train CNNs for image tasks.
 What it demonstrates
 
 CNN architectures
-
 Image preprocessing
-
 Training + evaluation
-
 Visualization of results
 
 Run
@@ -215,19 +189,14 @@ Goal: Prevent hallucinations using document grounding.
 How it works
 
 Documents are ingested and indexed into a vector store
-
 Queries retrieve relevant chunks
-
 LLM answers only using retrieved context
-
 Guardrails reject out-of-scope questions
 
 Key Features
 
 Vector store ingestion
-
 Citation-backed answers
-
 Deterministic evaluation script
 
 Run
@@ -246,18 +215,17 @@ Planner → decides action
 Tools:
 
 RAG search
-
 General LLM
-
 Calculator
 
 Agent routes questions based on intent
 
 Example
-Question	Tool
-“What does Grant Thornton do?”	RAG
-“Capital of France?”	LLM
-“12 * 8 + 4”	Calculator
+Question	||  Tool
+“What does Grant Thornton do?”	||  RAG
+“Capital of France?”	 ||  LLM
+“12 * 8 + 4”	||  Calculator
+
 Run
 python 10_agents/agent.py "Your question"
 
@@ -269,18 +237,17 @@ Goal: Ship the trained ML model as a production API.
 What it demonstrates
 
 Model loading from artifacts
-
 FastAPI inference endpoint
-
 Dockerized deployment
-
 Version mismatch debugging (sklearn)
 
 Build & Run
+
 docker build -t ai-expert-labs-api .
 docker run -p 8000:8000 ai-expert-labs-api
 
 Test API
+
 curl -X POST http://localhost:8000/predict \
   -H "Content-Type: application/json" \
   -d '{"features": [...]}'
@@ -289,19 +256,12 @@ curl -X POST http://localhost:8000/predict \
 🧪 Engineering Practices Highlighted
 
 Reproducibility (seeds, run IDs)
-
 Pipeline-based ML
-
 Proper evaluation metrics
-
 Model persistence & compatibility issues
-
 LLM grounding & hallucination control
-
 Tool-using agents
-
 Production debugging
-
 API + Docker deployment
 
 ---

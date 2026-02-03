@@ -78,7 +78,7 @@ metrics.json,
 Confusion matrix plot,
 ROC curve plot
 
-Run
+Run:
 python 02_supervised_classification/train.py
 
 ---
@@ -93,7 +93,7 @@ Pipeline-based preprocessing,
 Regression metrics (RMSE, R²),
 Artifact saving for reproducibility
 
-Run
+Run:
 python 03_supervised_regression/train.py
 
 ---
@@ -108,7 +108,7 @@ Dimensionality reduction (PCA),
 Visualization of clusters,
 Interpretation of unsupervised outputs
 
-Run
+Run:
 python 04_unsupervised_learning/run.py
 
 ---
@@ -123,7 +123,7 @@ Forecasting logic,
 Error metrics,
 Plotting predictions vs ground truth
 
-Run
+Run:
 python 05_time_series/train.py
 
 ---
@@ -138,7 +138,7 @@ TF-IDF vectorization,
 Linear classifiers,
 Explainable NLP models
 
-Run
+Run:
 python 06_nlp_classic/train.py
 
 ---
@@ -153,7 +153,7 @@ Loss tracking,
 Model checkpoints,
 GPU-ready code structure
 
-Run
+Run:
 python 07_deep_learning/train.py
 
 ---
@@ -168,7 +168,7 @@ Image preprocessing,
 Training + evaluation,
 Visualization of results
 
-Run
+Run:
 python 08_computer_vision/train.py
 
 ---
@@ -189,7 +189,7 @@ Vector store ingestion,
 Citation-backed answers,
 Deterministic evaluation script
 
-Run
+Run:
 python 09_llm_rag/ingest.py
 python 09_llm_rag/ask.py "Your question here"
 
@@ -210,13 +210,13 @@ Calculator
 
 Agent routes questions based on intent
 
-Example
+Example:
 Question	||  Tool
 “What does Grant Thornton do?”	||  RAG
 “Capital of France?”	 ||  LLM
 “12 * 8 + 4”	||  Calculator
 
-Run
+Run:
 python 10_agents/agent.py "Your question"
 
 ---
@@ -231,12 +231,12 @@ FastAPI inference endpoint,
 Dockerized deployment,
 Version mismatch debugging (sklearn)
 
-Build & Run
+Build & Run:
 
 docker build -t ai-expert-labs-api .
 docker run -p 8000:8000 ai-expert-labs-api
 
-Test API
+Test API:
 
 curl -X POST http://localhost:8000/predict \
   -H "Content-Type: application/json" \

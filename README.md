@@ -1,168 +1,323 @@
-🚀 AI Engineering Labs — End-to-End AI Systems (ML → LLMs → Agents → MLOps)
+# 🚀 AI Engineering Labs — End-to-End AI Systems (Hands-on)
 
-Author: Nitin Nanje Gowda
-Role Target: AI Engineer / Applied ML Engineer / LLM Engineer
-Stack: Python · Scikit-Learn · PyTorch · FastAPI · Docker · OpenAI · RAG · Agents · MLOps
+A production-oriented, runnable repository that demonstrates how to design, train, debug, and deploy real AI systems — from classical ML to LLMs, agentic workflows, and MLOps.
 
-🧠 What This Repository Demonstrates
+This repo is built to reflect how AI Engineers actually work in industry, not just notebooks or toy demos.
 
-This repository is a production-style AI engineering journey, built to showcase how modern AI systems are designed, trained, debugged, deployed, and orchestrated — not just notebooks or toy demos.
+---
+#What This Repository Demonstrates
 
-It covers:
+Classical ML pipelines (tabular data)
 
-Classical Machine Learning
+NLP (classic + LLM-based)
 
-Deep Learning & Computer Vision
+Time series forecasting
 
-LLM-based Retrieval Augmented Generation (RAG)
+Deep learning & computer vision
 
-Agentic AI systems (planner + tools)
+Retrieval-Augmented Generation (RAG)
 
-MLOps & deployment with FastAPI + Docker
+Agentic AI (planner + tools)
 
-Every segment is independently runnable, versioned, and production-oriented.
+Model deployment with FastAPI + Docker
 
-🧩 Repository Structure
-ai-expert-labs/
-├── 00_setup/                 # Reproducibility, seeds, run IDs
-├── 01_ml_basics/             # ML fundamentals & evaluation
-├── 02_supervised_classification/
-├── 03_supervised_regression/
-├── 04_unsupervised_learning/
-├── 05_time_series/
-├── 06_nlp_classic/
-├── 07_deep_learning/
-├── 08_computer_vision/
-├── 09_llm_rag/               # RAG with OpenAI + vector stores
-├── 10_agents/                # Planner-based agent system
-├── 11_mlops_deploy/          # FastAPI + Docker deployment
-└── README.md
+Real debugging and production issues
 
-🧪 Segment 02 — Supervised ML (Production-Ready Pipeline)
+Each segment is:
 
-Dataset: Breast Cancer Wisconsin
-Models: Logistic Regression vs Random Forest
-Metrics: Accuracy, ROC-AUC
-Artifacts Saved:
+Self-contained
 
-Trained pipeline (joblib)
+Runnable from CLI
 
-Metrics JSON
+Saves artifacts (models, metrics, plots)
 
-Confusion matrix
+Written with production constraints in mind
 
-ROC curve
+---
+## Run any segment from the repo root
+python <segment_folder>/<script_name>.py
 
-🏆 Results
-Model	Accuracy	ROC-AUC
-Logistic Regression	~98.2%	~0.995
-Random Forest	~95.6%	~0.993
-
-Key Engineering Practices
-
-Full preprocessing pipeline (imputation + scaling)
-
-Model comparison & selection
-
-Reproducible runs
-
-Exported deployable model artifact
-
-🔍 Segment 09 — LLM RAG System (Enterprise-Style)
-
-Features
-
-Document ingestion & indexing
-
-Vector store retrieval
-
-Guardrails with confidence thresholds
-
-Citation-grounded answers
-
-“I don’t know” behavior for out-of-scope queries
-
-Example
-
-python ask.py "What does Grant Thornton do?"
+---
+## Repo Structure
+- `setup/` Reproducible environment + utilities
+- `01_ml_basics/` EDA + feature engineering
+- `02_supervised_classification/` Classification pipeline
+- `03_supervised_regression/` Regression pipeline
+- `04_unsupervised_learning/` Clustering + PCA
+- `05_time_series/` Forecasting
+- `06_nlp_classic/` TF-IDF + linear models
+- `07_deep_learning/` PyTorch basics
+- `08_computer_vision/` CNN
+- `09_llm_rag/` RAG with citations + eval
+- `10_agents/` Tool-using agent
+- `11_mlops_deploy/` FastAPI + Docker deployment
 
 
-Result
+---
 
-Answer grounded strictly in documents
+## Quickstart (Windows / PowerShell)
 
-No hallucinations
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pips
+pip install -r requirements.txt
 
-Citations attached
+---
+#🧠 Segment-by-Segment Explanation
 
-🤖 Segment 10 — Agentic AI System
+#02 — Supervised Classification (Production ML Pipeline)
 
-Built a planner-based AI agent that dynamically routes questions:
+Goal: Train, compare, evaluate, and export a deployable classification model.
 
-Question Type	Tool Used
-Company knowledge	RAG
-General knowledge	LLM
-Math / logic	Calculator
+How it works
+
+Dataset: Breast Cancer Wisconsin (sklearn)
+
+Models compared:
+
+Logistic Regression
+
+Random Forest
+
+Pipeline includes:
+
+Imputation
+
+Scaling
+
+Model
+
+Evaluation:
+
+Accuracy
+
+ROC-AUC (primary selection metric)
+
+Best model is automatically selected and exported
+
+Outputs
+
+best_model.joblib
+
+metrics.json
+
+Confusion matrix plot
+
+ROC curve plot
+
+Run
+python 02_supervised_classification/train.py
+
+---
+#03 — Supervised Regression
+
+Goal: Build and evaluate regression pipelines with proper metrics.
+
+What it demonstrates
+
+Train/test split
+
+Pipeline-based preprocessing
+
+Regression metrics (RMSE, R²)
+
+Artifact saving for reproducibility
+
+Run
+python 03_supervised_regression/train.py
+
+---
+#04 — Unsupervised Learning
+
+Goal: Explore structure in unlabeled data.
+
+What it demonstrates
+
+Clustering (e.g., KMeans)
+
+Dimensionality reduction (PCA)
+
+Visualization of clusters
+
+Interpretation of unsupervised outputs
+
+Run
+python 04_unsupervised_learning/run.py
+
+---
+#05 — Time Series Forecasting
+
+Goal: Build forecasting models with temporal awareness.
+
+What it demonstrates
+
+Train/validation split by time
+
+Forecasting logic
+
+Error metrics
+
+Plotting predictions vs ground truth
+
+Run
+python 05_time_series/train.py
+
+---
+#06 — NLP (Classic)
+
+Goal: Show non-LLM NLP pipelines.
+
+What it demonstrates
+
+Text preprocessing
+
+TF-IDF vectorization
+
+Linear classifiers
+
+Explainable NLP models
+
+Run
+python 06_nlp_classic/train.py
+
+---
+#07 — Deep Learning (PyTorch)
+
+Goal: Implement neural networks from scratch.
+
+What it demonstrates
+
+PyTorch training loops
+
+Loss tracking
+
+Model checkpoints
+
+GPU-ready code structure
+
+Run
+python 07_deep_learning/train.py
+
+---
+#08 — Computer Vision
+
+Goal: Build and train CNNs for image tasks.
+
+What it demonstrates
+
+CNN architectures
+
+Image preprocessing
+
+Training + evaluation
+
+Visualization of results
+
+Run
+python 08_computer_vision/train.py
+
+---
+#09 — LLM + RAG (Retrieval-Augmented Generation)
+
+Goal: Prevent hallucinations using document grounding.
+
+How it works
+
+Documents are ingested and indexed into a vector store
+
+Queries retrieve relevant chunks
+
+LLM answers only using retrieved context
+
+Guardrails reject out-of-scope questions
+
+Key Features
+
+Vector store ingestion
+
+Citation-backed answers
+
+Deterministic evaluation script
+
+Run
+python 09_llm_rag/ingest.py
+python 09_llm_rag/ask.py "Your question here"
+
+---
+#10 — Agentic AI System
+
+Goal: Build a planner-based agent that chooses tools dynamically.
 
 Architecture
 
-Planner → Tool selection → Execution → Response
+Planner → decides action
 
-Clear separation of reasoning and execution
+Tools:
 
-This mirrors real agent systems used in enterprise AI platforms.
+RAG search
 
-🚢 Segment 11 — MLOps & Deployment
+General LLM
 
-What was shipped
+Calculator
 
-FastAPI inference service
+Agent routes questions based on intent
 
-Dockerized application
+Example
+Question	Tool
+“What does Grant Thornton do?”	RAG
+“Capital of France?”	LLM
+“12 * 8 + 4”	Calculator
+Run
+python 10_agents/agent.py "Your question"
 
-Loaded trained sklearn pipeline
+---
+#11 — MLOps + Deployment (FastAPI + Docker)
 
-/predict REST endpoint
+Goal: Ship the trained ML model as a production API.
 
-Tested via curl
+What it demonstrates
 
-Example API Call
+Model loading from artifacts
+
+FastAPI inference endpoint
+
+Dockerized deployment
+
+Version mismatch debugging (sklearn)
+
+Build & Run
+docker build -t ai-expert-labs-api .
+docker run -p 8000:8000 ai-expert-labs-api
+
+Test API
 curl -X POST http://localhost:8000/predict \
   -H "Content-Type: application/json" \
   -d '{"features": [...]}'
 
+---
+#🧪 Engineering Practices Highlighted
 
-Response
+Reproducibility (seeds, run IDs)
 
-{
-  "prediction": 0,
-  "probability": 0.29
-}
+Pipeline-based ML
 
-🧠 Real-World Debugging Experience
+Proper evaluation metrics
 
-This repo intentionally reflects real engineering challenges, including:
+Model persistence & compatibility issues
 
-OpenAI API deprecations (Assistants → Responses)
+LLM grounding & hallucination control
 
-Vector store indexing failures
+Tool-using agents
 
-Authentication & API key changes
+Production debugging
 
-Python import system pitfalls
+API + Docker deployment
 
-Sklearn serialization incompatibilities
+---
+#👤 Author
 
-Docker runtime vs training environment mismatches
-
-Windows vs Linux execution issues
-
-All were debugged and resolved systematically, not by trial and error.
-
-📬 Contact
-
-GitHub: https://github.com/NitinNanjeGowda00
-
-LinkedIn: https://linkedin.com/in/nitinnanjegowda
-
-Email: nitingowda.roan@gmail.com
+Nitin Nanje Gowda
+🎓 MSc Artificial Intelligence & Robotics
+🎯 Target Roles: AI Engineer / ML Engineer / LLM Engineer
+📍 Bengaluru, India

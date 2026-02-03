@@ -54,9 +54,9 @@ python <segment_folder>/<script_name>.py
 
 
 ---
-#🧠 Segment-by-Segment Explanation
+🧠 Segment-by-Segment Explanation
 
-#02 — Supervised Classification (Production ML Pipeline)
+02 — Supervised Classification (Production ML Pipeline)
 
 Goal: Train, compare, evaluate, and export a deployable classification model.
 
@@ -100,7 +100,7 @@ Run
 python 02_supervised_classification/train.py
 
 ---
-#03 — Supervised Regression
+03 — Supervised Regression
 
 Goal: Build and evaluate regression pipelines with proper metrics.
 
@@ -118,7 +118,7 @@ Run
 python 03_supervised_regression/train.py
 
 ---
-#04 — Unsupervised Learning
+04 — Unsupervised Learning
 
 Goal: Explore structure in unlabeled data.
 
@@ -136,7 +136,7 @@ Run
 python 04_unsupervised_learning/run.py
 
 ---
-#05 — Time Series Forecasting
+05 — Time Series Forecasting
 
 Goal: Build forecasting models with temporal awareness.
 
@@ -154,7 +154,7 @@ Run
 python 05_time_series/train.py
 
 ---
-#06 — NLP (Classic)
+06 — NLP (Classic)
 
 Goal: Show non-LLM NLP pipelines.
 
@@ -172,7 +172,7 @@ Run
 python 06_nlp_classic/train.py
 
 ---
-#07 — Deep Learning (PyTorch)
+07 — Deep Learning (PyTorch)
 
 Goal: Implement neural networks from scratch.
 
@@ -190,7 +190,7 @@ Run
 python 07_deep_learning/train.py
 
 ---
-#08 — Computer Vision
+08 — Computer Vision
 
 Goal: Build and train CNNs for image tasks.
 
@@ -208,7 +208,7 @@ Run
 python 08_computer_vision/train.py
 
 ---
-#09 — LLM + RAG (Retrieval-Augmented Generation)
+09 — LLM + RAG (Retrieval-Augmented Generation)
 
 Goal: Prevent hallucinations using document grounding.
 
@@ -235,7 +235,7 @@ python 09_llm_rag/ingest.py
 python 09_llm_rag/ask.py "Your question here"
 
 ---
-#10 — Agentic AI System
+10 — Agentic AI System
 
 Goal: Build a planner-based agent that chooses tools dynamically.
 
@@ -262,7 +262,7 @@ Run
 python 10_agents/agent.py "Your question"
 
 ---
-#11 — MLOps + Deployment (FastAPI + Docker)
+11 — MLOps + Deployment (FastAPI + Docker)
 
 Goal: Ship the trained ML model as a production API.
 
@@ -286,7 +286,7 @@ curl -X POST http://localhost:8000/predict \
   -d '{"features": [...]}'
 
 ---
-#🧪 Engineering Practices Highlighted
+🧪 Engineering Practices Highlighted
 
 Reproducibility (seeds, run IDs)
 
@@ -305,7 +305,7 @@ Production debugging
 API + Docker deployment
 
 ---
-#👤 Author
+👤 Author
 
 Nitin Nanje Gowda
 🎓 MSc Artificial Intelligence & Robotics

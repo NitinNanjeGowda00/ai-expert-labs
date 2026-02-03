@@ -54,19 +54,6 @@ python <segment_folder>/<script_name>.py
 
 
 ---
-
-## Quickstart (Windows / PowerShell)
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pips
-pip install -r requirements.txt
-
-
-
-
----
 #🧠 Segment-by-Segment Explanation
 
 #02 — Supervised Classification (Production ML Pipeline)
@@ -324,3 +311,15 @@ Nitin Nanje Gowda
 🎓 MSc Artificial Intelligence & Robotics
 🎯 Target Roles: AI Engineer / ML Engineer / LLM Engineer
 📍 Bengaluru, India
+
+---
+
+## Quickstart (Windows / PowerShell)
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pips
+pip install -r requirements.txt
+
+

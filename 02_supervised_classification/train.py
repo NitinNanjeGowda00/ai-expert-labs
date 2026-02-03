@@ -9,6 +9,9 @@ Outputs:
     metrics.json
     confusion_matrix.png
     roc_curve.png
+
+Also exports deployable model to:
+  11_mlops_deploy/models/logreg_model.joblib
 """
 
 from __future__ import annotations
@@ -22,10 +25,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-import numpy as np
-from joblib import dump
 import matplotlib.pyplot as plt
-
+from joblib import dump
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -46,10 +47,10 @@ from setup.repro import seed_everything, basic_run_id
 
 
 ART_DIR = Path("artifacts/seg02")
+DEPLOY_MODEL_DIR = Path("11_mlops_deploy/models")
 
 
 def make_pipeline(model):
-    # Dataset is numeric already, but we keep a robust numeric pipeline.
     numeric_pipe = Pipeline(
         steps=[
             ("imputer", SimpleImputer(strategy="median")),
@@ -98,13 +99,14 @@ def save_roc_curve(pipe, X_test, y_test, outpath: Path) -> None:
 def main() -> None:
     seed_everything(42)
     ART_DIR.mkdir(parents=True, exist_ok=True)
+    DEPLOY_MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
     run_id = basic_run_id("seg02")
     print(f"Run: {run_id}")
 
     data = load_breast_cancer()
     X = data.data
-    y = data.target  # 0/1
+    y = data.target
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
@@ -127,15 +129,18 @@ def main() -> None:
         print(json.dumps(res, indent=2))
 
     # Pick best by roc_auc, tie-breaker accuracy
-    results_sorted = sorted(results, key=lambda d: (d["roc_auc"], d["accuracy"]), reverse=True)
+    results_sorted = sorted(
+        results, key=lambda d: (d["roc_auc"], d["accuracy"]), reverse=True
+    )
     best = results_sorted[0]
     best_name = best["model"]
     best_pipe = fitted[best_name]
 
-    # Save plots for best model
+    # Save plots
     save_confusion_matrix(best_pipe, X_test, y_test, ART_DIR / "confusion_matrix.png")
     save_roc_curve(best_pipe, X_test, y_test, ART_DIR / "roc_curve.png")
 
+    # Save metrics
     out = {
         "run_id": run_id,
         "results": results_sorted,
@@ -148,9 +153,15 @@ def main() -> None:
     with open(ART_DIR / "metrics.json", "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2)
 
+    # Save training artifact
     dump(best_pipe, ART_DIR / "best_model.joblib")
 
-    print("\nSaved to:", ART_DIR)
+    # Export deployable artifact
+    deploy_path = DEPLOY_MODEL_DIR / "logreg_model.joblib"
+    dump(best_pipe, deploy_path)
+
+    print("\nSaved training artifacts to:", ART_DIR)
+    print("Exported deployable model to:", deploy_path)
     print("Best model:", best_name)
     print(json.dumps(best, indent=2))
 

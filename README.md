@@ -258,8 +258,11 @@ API + Docker deployment
 👤 Author
 
 Nitin Nanje Gowda
+
 🎓 MSc Artificial Intelligence & Robotics
+
 🎯 Target Roles: AI Engineer / ML Engineer / LLM Engineer
+
 📍 Bengaluru, India
 
 ---
